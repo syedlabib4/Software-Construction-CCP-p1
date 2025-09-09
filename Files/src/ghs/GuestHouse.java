@@ -29,32 +29,14 @@ public class GuestHouse {
      * @return feedback message
      */
     public String cancelReservation(int reservationNumber) {
-        // Defensive programming: check if reservation exists
-        if (!reservations.containsKey(reservationNumber)) {
-            return "Reservation #" + reservationNumber + " does not exist.";
-        }
-
         Reservation reservation = reservations.get(reservationNumber);
 
         if (reservation == null) {
-            return "Reservation is null.";
+            return "Reservation #" + reservationNumber + " does not exist.";
         }
 
-        // Step 1: Deallocate the room
-        Room room = reservation.getRoom();
-        if (room != null) {
-            room.deallocateRoom(reservation);
-        }
-
-        // Step 2: Remove from reserver payer
-        ReserverPayer reserver = reservation.getReserverPayer();
-        if (reserver != null) {
-            reserver.removeReservation(reservationNumber);
-        }
-
-        // Step 3: Remove from guest house reservation list
+        String feedback = reservation.cancel();
         reservations.remove(reservationNumber);
-
-        return "Reservation #" + reservationNumber + " cancelled successfully.";
+        return feedback;
     }
 }

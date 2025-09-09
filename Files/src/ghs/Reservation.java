@@ -25,4 +25,21 @@ public class Reservation {
     public Room getRoom() {
         return room;
     }
+
+    /**
+     * Cancels the reservation from all parties
+     *
+     * @return feedback
+     */
+    public String cancel() {
+        if (room != null) {
+            room.deallocateRoom(this);
+        }
+
+        if (reserverPayer != null) {
+            reserverPayer.removeReservation(number);
+        }
+
+        return "Reservation #" + number + " cancelled successfully.";
+    }
 }
