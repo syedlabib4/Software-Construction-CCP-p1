@@ -1,25 +1,29 @@
 package ghs;
-// src/Room.java
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Represents a hotel room
+ */
 public class Room {
-    private int number;
-    private RoomType kind;
-    private double cost;
-    private Guest occupant;
-    private List<Reservation> roomReservations;
+    private int roomNumber;
+    private Map<Reservation, Boolean> roomReservations = new HashMap<>();
 
-    public Room(int number, RoomType kind, double cost) {
-        this.number = number;
-        this.kind = kind;
-        this.cost = cost;
-        this.roomReservations = new ArrayList<>();
+    public Room(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
+    public void allocateRoom(Reservation reservation) {
+        roomReservations.put(reservation, true);
+    }
+
+    /**
+     * Deallocates room from the reservation
+     *
+     * @param reservation reservation to remove
+     */
     public void deallocateRoom(Reservation reservation) {
-        if (roomReservations.contains(reservation)) {
-            roomReservations.remove(reservation);
-        }
+        roomReservations.remove(reservation);
     }
 }

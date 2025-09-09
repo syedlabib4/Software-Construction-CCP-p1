@@ -1,17 +1,14 @@
 package ghs;
-// src/Reservation.java
-import java.util.Date;
 
+/**
+ * Represents a reservation made by a reserver for a room
+ */
 public class Reservation {
-    private Date startDate;
-    private Date endDate;
     private int number;
     private ReserverPayer reserverPayer;
     private Room room;
 
-    public Reservation(Date startDate, Date endDate, int number, ReserverPayer reserverPayer, Room room) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public Reservation(int number, ReserverPayer reserverPayer, Room room) {
         this.number = number;
         this.reserverPayer = reserverPayer;
         this.room = room;

@@ -1,10 +1,14 @@
 package ghs;
-// src/GuestHouse.java
-import java.util.HashMap;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Represents a Guest House with reservations
+ */
 public class GuestHouse {
     private String name;
-    private HashMap<Integer, Reservation> reservations;
+    private Map<Integer, Reservation> reservations;
 
     public GuestHouse(String name) {
         this.name = name;
@@ -12,38 +16,45 @@ public class GuestHouse {
     }
 
     public void addReservation(Reservation reservation) {
-        if (reservation != null) {
-            reservations.put(reservation.getNumber(), reservation);
-        }
+        reservations.put(reservation.getNumber(), reservation);
     }
 
+    /**
+     * Cancels the specified reservation by:
+     * 1. Removing from guest house
+     * 2. Removing from reserverPayer
+     * 3. Deallocating the room
+     *
+     * @param reservationNumber the reservation number to cancel
+     * @return feedback message
+     */
     public String cancelReservation(int reservationNumber) {
-        if (reservationNumber <= 0) {
-            return "Error: Invalid reservation number. Must be a positive integer.";
+        // Defensive programming: check if reservation exists
+        if (!reservations.containsKey(reservationNumber)) {
+            return "Reservation #" + reservationNumber + " does not exist.";
         }
 
         Reservation reservation = reservations.get(reservationNumber);
 
         if (reservation == null) {
-            return "Error: Reservation with number " + reservationNumber + " not found in " + this.name + ".";
+            return "Reservation is null.";
         }
 
+        // Step 1: Deallocate the room
         Room room = reservation.getRoom();
         if (room != null) {
             room.deallocateRoom(reservation);
-        } else {
-            System.err.println("Warning: Reservation " + reservationNumber + " had no associated room.");
         }
 
-        ReserverPayer reserverPayer = reservation.getReserverPayer();
-        if (reserverPayer != null) {
-            reserverPayer.removeReservation(reservationNumber);
-        } else {
-            System.err.println("Warning: Reservation " + reservationNumber + " had no associated reserver payer.");
+        // Step 2: Remove from reserver payer
+        ReserverPayer reserver = reservation.getReserverPayer();
+        if (reserver != null) {
+            reserver.removeReservation(reservationNumber);
         }
 
+        // Step 3: Remove from guest house reservation list
         reservations.remove(reservationNumber);
 
-        return "Reservation " + reservationNumber + " has been successfully cancelled from " + this.name + ".";
+        return "Reservation #" + reservationNumber + " cancelled successfully.";
     }
 }
