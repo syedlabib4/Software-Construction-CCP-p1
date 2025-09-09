@@ -1,4 +1,5 @@
 package ghs;
+// src/Reservation.java
 import java.util.Date;
 
 public class Reservation {
@@ -16,7 +17,6 @@ public class Reservation {
         this.room = room;
     }
 
-    // Getters
     public int getNumber() {
         return number;
     }

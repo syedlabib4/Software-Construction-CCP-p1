@@ -1,5 +1,6 @@
 package ghs;
 
+// src/Guest.java
 public class Guest {
     private String name;
     private String addressDetails;
@@ -9,7 +10,6 @@ public class Guest {
         this.addressDetails = addressDetails;
     }
 
-    // Getters for name and addressDetails
     public String getName() {
         return name;
     }

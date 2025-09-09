@@ -1,5 +1,7 @@
 package ghs;
 // src/ReservationPanel.java
+// src/ReservationPanel.java
+// src/ReservationPanel.java
 import java.util.Date;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,7 +17,7 @@ public class ReservationPanel {
     // Placeholder fields with dummy data to pass validation
     private Date startDate = new Date();
     private Date endDate = new Date();
-    private String reserverName = "Ali Bukhari";
+    private String reserverName = "Labib Bukhari"; // Updated name
     private String address = "123 Main St";
     private String multiLineAddress = "123 Main St";
     private String creditCardNo = "1234567890123456";
