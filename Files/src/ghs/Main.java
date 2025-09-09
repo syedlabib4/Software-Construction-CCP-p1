@@ -1,31 +1,30 @@
 package ghs;
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-        GuestHouse guestHouse = new GuestHouse("Iqra Guest House");
-        ReserverPayer payer = new ReserverPayer("Ali");
+        System.out.println("--- Starting Hotel Reservation System Demonstration ---");
 
-        // Create a reservation request (Q2 style)
-        ReservationService.ReservationRequest req =
-                new ReservationService.ReservationRequest(
-                        "Iqra Guest House",
-                        "2025-09-10", "2025-09-12",
-                        "Single",
-                        "Ali Bukhari",
-                        "Karachi, Pakistan",
-                        "1234567812345678"
-                );
+        GuestHouse guestHouse1 = new GuestHouse("The Grand Hotel");
+        ReserverPayer johnDoe = new ReserverPayer("John Doe", "123 Main St", "1234-5678-9012-3456");
+        Room room101 = new Room(101, RoomType.DOUBLE, 150.0);
 
-        // Use ReservationService (refactored confirmReservation)
-        String feedback = ReservationService.makeReservation(guestHouse, req, payer);
+        Reservation reservation1 = new Reservation(new Date(), new Date(), 1001, johnDoe, room101);
+        
+        // Corrected line: Use the public addReservation method to add a reservation.
+        guestHouse1.addReservation(reservation1);
+        johnDoe.addReservation(reservation1);
 
-        System.out.println(feedback);
+        System.out.println("\nSuccessfully created Reservation 1001 for John Doe in room 101.");
 
-        // Verify if stored properly
-        System.out.println("All reservations: " + guestHouse.getReservations());
+        System.out.println("\n--- Attempting to cancel Reservation 1001 ---");
+        String cancellationMessage = guestHouse1.cancelReservation(1001);
+        System.out.println(cancellationMessage);
+
+        System.out.println("\n--- Attempting to cancel a non-existent reservation ---");
+        String invalidCancellationMessage = guestHouse1.cancelReservation(9999);
+        System.out.println(invalidCancellationMessage);
+        
+        System.out.println("\n--- End of Demonstration ---");
     }
 }
-
-
-
-

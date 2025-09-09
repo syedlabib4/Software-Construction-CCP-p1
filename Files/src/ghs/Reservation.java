@@ -1,34 +1,31 @@
 package ghs;
+import java.util.Date;
 
 public class Reservation {
-    private int reservationNumber;
-    private Room room;
+    private Date startDate;
+    private Date endDate;
+    private int number;
     private ReserverPayer reserverPayer;
+    private Room room;
 
-    public Reservation(int reservationNumber, Room room, ReserverPayer reserverPayer) {
-        if (reservationNumber <= 0) {
-            throw new IllegalArgumentException("Reservation number must be positive.");
-        }
-        if (room == null) {
-            throw new IllegalArgumentException("Room cannot be null.");
-        }
-        if (reserverPayer == null) {
-            throw new IllegalArgumentException("ReserverPayer cannot be null.");
-        }
-
-        this.reservationNumber = reservationNumber;
-        this.room = room;
+    public Reservation(Date startDate, Date endDate, int number, ReserverPayer reserverPayer, Room room) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.number = number;
         this.reserverPayer = reserverPayer;
+        this.room = room;
     }
 
-    public int getReservationNumber() { return reservationNumber; }
-    public Room getRoom() { return room; }
-    public ReserverPayer getReserverPayer() { return reserverPayer; }
+    // Getters
+    public int getNumber() {
+        return number;
+    }
 
-    @Override
-    public String toString() {
-        return "Reservation #" + reservationNumber +
-               " for " + reserverPayer.getName() +
-               " in " + room.getRoomNumber();
+    public ReserverPayer getReserverPayer() {
+        return reserverPayer;
+    }
+
+    public Room getRoom() {
+        return room;
     }
 }

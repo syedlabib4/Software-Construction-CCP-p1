@@ -1,42 +1,30 @@
 package ghs;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class ReserverPayer {
     private String name;
-    private Map<Integer, Reservation> myReservations;
+    private String addressDetails;
+    private String creditCardDetails;
+    private HashMap<Integer, Reservation> myReservations;
 
-    public ReserverPayer(String name) {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be null or blank.");
-        }
+    public ReserverPayer(String name, String addressDetails, String creditCardDetails) {
         this.name = name;
+        this.addressDetails = addressDetails;
+        this.creditCardDetails = creditCardDetails;
         this.myReservations = new HashMap<>();
     }
 
-    public String getName() { return name; }
-
-    public void addReservation(Reservation reservation) {
-        if (reservation == null) throw new IllegalArgumentException("Reservation cannot be null.");
-        myReservations.put(reservation.getReservationNumber(), reservation);
-    }
-
     /**
-     * Removes a reservation with the specified number
-     * from the reserver's list(HashMap) of reservations
-     * @param reservationNumber the unique id of the reservation to remove
-     * @pre reservationNumber is positive and must be in the list
+     * Removes a reservation with the specified number from the reserver's list of reservations.
+     * @param reservationNumber The unique ID of the reservation to remove.
      */
     public void removeReservation(int reservationNumber) {
-        if (!myReservations.containsKey(reservationNumber)) {
-            throw new IllegalArgumentException("Reservation not found in payer's list.");
-        }
+        // @pre reservationNumber is positive and must be in the list
+        // This is a precondition, but good practice is to handle cases where it's not.
         myReservations.remove(reservationNumber);
     }
 
-    @Override
-    public String toString() {
-        return "ReserverPayer: " + name + " with reservations " + myReservations.keySet();
+    public void addReservation(Reservation reservation) {
+        myReservations.put(reservation.getNumber(), reservation);
     }
 }

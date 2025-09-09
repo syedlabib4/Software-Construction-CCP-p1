@@ -1,45 +1,31 @@
 package ghs;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
-    private String roomNumber;
-    private String kind;
-    private boolean available;
-    private double pricePerNight;
+    private int number;
+    private RoomType kind;
+    private double cost;
+    private Guest occupant;
+    private List<Reservation> roomReservations; // List of reservations for this room
 
-    // Full constructor
-    public Room(String roomNumber, String kind, double pricePerNight) {
-        if (roomNumber == null || roomNumber.isBlank()) {
-            throw new IllegalArgumentException("Room number cannot be null or blank.");
-        }
-        if (kind == null || kind.isBlank()) {
-            throw new IllegalArgumentException("Room kind cannot be null or blank.");
-        }
-        if (pricePerNight < 0) {
-            throw new IllegalArgumentException("Price cannot be negative.");
-        }
-
-        this.roomNumber = roomNumber;
+    public Room(int number, RoomType kind, double cost) {
+        this.number = number;
         this.kind = kind;
-        this.pricePerNight = pricePerNight;
-        this.available = true;
+        this.cost = cost;
+        this.roomReservations = new ArrayList<>();
     }
 
-    // Extra constructor (default kind + price)
-    public Room(String roomNumber) {
-        this(roomNumber, "Standard", 0.0);
+    /**
+     * Deallocates the room by removing a reservation.
+     * @param reservation The reservation to deallocate.
+     */
+    public void deallocateRoom(Reservation reservation) {
+        // Defensive programming: check if the list contains the reservation before removing.
+        if (roomReservations.contains(reservation)) {
+            roomReservations.remove(reservation);
+        }
     }
 
-    public String getRoomNumber() { return roomNumber; }
-    public String getKind() { return kind; }
-    public boolean isAvailable() { return available; }
-    public double getPricePerNight() { return pricePerNight; }
-
-    public void setAvailable(boolean available) { this.available = available; }
-
-    @Override
-    public String toString() {
-        return "Room " + roomNumber +
-               " (" + kind + ", Available: " + available +
-               ", Price: " + pricePerNight + ")";
-    }
+    // Other methods like allocateRoom, checkOccupied, etc. would go here.
 }
